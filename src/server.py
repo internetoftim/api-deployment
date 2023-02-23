@@ -73,3 +73,28 @@ def run_qa(model_input: QA):
         "score": result["score"],
     }
     return JSONResponse(content=response, headers=headers)
+
+
+@app.post(
+    "/stable_diffusion_2_text2img",
+    include_in_schema="stable_diffusion_2_text2img" in models,
+)
+def run_stable_diffusion_2_text2img(
+    model_input: StableDiffusion2Request = Depends(),
+    api_key: APIKey = Depends(get_api_key),
+):
+    start = time.time()
+
+    data_dict = model_input.dict()
+    w.workers["stable_diffusion_2_text2img"].feed(data_dict)
+    result = w.workers["stable_diffusion_2_text2img"].get_result()
+
+    latency = time.time() - start
+
+    headers = {
+        "metrics-worker-latency": str(latency),
+        # Add model_latency to SD model
+        # "metrics-model-latency": str(results["model_latency"]),
+    }
+
+    return prepare_image_response(result, headers, model_input.return_json)

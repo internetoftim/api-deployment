@@ -4,7 +4,7 @@ from typing import List
 
 
 class Settings(BaseSettings):
-    server_models: List[str] = ["summarization", "question_answering"]
+    server_models: List[str] = ["question_answering","stable_diffusion_2_text2img"]
 
     class Config:
         env_file = "../.env"

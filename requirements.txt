@@ -5,3 +5,4 @@ numpy
 pyyaml
 tokenizers===0.11.1
 pydantic[dotenv]
+diffusers[torch]==0.9
