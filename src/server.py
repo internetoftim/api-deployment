@@ -1,5 +1,15 @@
 # Copyright (c) 2022 Graphcore Ltd. All rights reserved.
-from fastapi import FastAPI
+from fastapi import (
+    FastAPI,
+    Response,
+    HTTPException,
+    File,
+    UploadFile,
+    Security,
+    Depends,
+    Request,
+)
+
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from api_classes import *
@@ -80,8 +90,7 @@ def run_qa(model_input: QA):
     include_in_schema="stable_diffusion_2_text2img" in models,
 )
 def run_stable_diffusion_2_text2img(
-    model_input: StableDiffusion2Request = Depends(),
-    api_key: APIKey = Depends(get_api_key),
+    model_input: StableDiffusion2Request 
 ):
     start = time.time()
 
