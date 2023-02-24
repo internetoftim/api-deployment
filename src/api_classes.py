@@ -1,5 +1,8 @@
 # Copyright (c) 2022 Graphcore Ltd. All rights reserved.
 from pydantic import BaseModel
+import time
+from typing import Dict, List
+
 
 # Summarization
 class SummarizationInput(BaseModel):
